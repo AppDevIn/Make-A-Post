@@ -30,18 +30,29 @@ class _PostViewState extends State<PostView>{
     return ListView.separated(
       itemCount: posts.length,
       itemBuilder: (BuildContext context, int pos){
-       return Column(
-         children: <Widget>[
-           Card(
-             child: Column(
-               children: <Widget>[
-                 Text(posts[pos].name)
-               ],
-             ),
-           ),
-         ],
-       );  
-    } ,
+       return Container(
+         color: Colors.white,
+         child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 10
+              ),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(
+                    width:10
+                  ),
+                  Text(posts[pos].name)
+                ],
+              ),
+            ),   
+            Image.memory(posts[pos].imageCode)
+          ],  
+         ),
+       ); 
+    },
     separatorBuilder: (BuildContext context, int index) {
       return Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 5),);
     }
