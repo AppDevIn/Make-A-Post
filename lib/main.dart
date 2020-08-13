@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Widgets/listView.dart';
+import 'Widgets/dialog.dart';
 import 'class/post.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -13,11 +14,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Welcome to Flutter',
-      home: Scaffold(
+      debugShowCheckedModeBanner: false,
+      home: Main()
+    );
+  }
+}
+
+
+class Main extends StatelessWidget{
+
+
+  const Main();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
         appBar: AppBar(
           title: const Text("Overflow"),
           actions: <Widget>[
-            IconButton(icon: const Icon(Icons.add), tooltip: "Add post", onPressed: null)
+            IconButton(icon: const Icon(Icons.add), tooltip: "Add post", onPressed:() {
+              showDialog(context: context, builder: (BuildContext context) => CustomDialog());
+            })
           ],
         ),
         body: Container(
@@ -34,13 +52,12 @@ class MyApp extends StatelessWidget {
               )
 
           ),
+          
 
         ),
-      ),
-    );
+      );
   }
 }
-
 
 Future<List<Post>> generatePost () async{
 
