@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "623069830377",
+    "firebase_url": "https://instagram-post-api.firebaseio.com",
+    "project_id": "instagram-post-api",
+    "storage_bucket": "instagram-post-api.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623069830377:android:5d747eb87928a34ed76478",
+        "android_client_info": {
+          "package_name": "com.AppDevIn.InstaPostOnly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623069830377-n6jt970r2f6042bqs0an3o4lu1tot4ds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq8hXSfQl6SKB8dpkcdjjCopyyu3ppWqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623069830377-n6jt970r2f6042bqs0an3o4lu1tot4ds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
