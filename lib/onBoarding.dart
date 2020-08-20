@@ -44,14 +44,18 @@ class Main extends StatelessWidget{
             })
           ],
         ),
-        body: Container(
-          child: Center(
-            child: FutureBuilder<List<Post>>(
-              future: generatePost(),
-              builder: (context, AsyncSnapshot<List<Post>> snapshot) {
+        body: StreamBuilder(
+              stream: Firestore.instance.collection("posts").snapshots(),
+              builder: (context,snapshot) {
                 if (snapshot.hasData) {
-                  postView = PostView(snapshot.data);
-                  return postView;
+                     return ListView.separated(
+                        itemCount: snapshot.data.documents.length,
+                        itemBuilder: (context, pos) => PostView(snapshot.data.documents[pos])
+                      ,
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 5),);
+                      }
+                      );
                 } else {
                   return CircularProgressIndicator();
                 }
@@ -61,8 +65,7 @@ class Main extends StatelessWidget{
           ),
           
 
-        ),
-      ));
+        );
   }
 }
 
@@ -77,7 +80,7 @@ Future<List<Post>> generatePost () async{
 
   List<Post> posts = new List<Post>();
   for (int i = 0; i < 5; i++){
-    posts.add(new Post(name: "inori yuzuriha", imageCode: bytes));
+    posts.add(new Post(name: "Inori Yuzuriha", imageCode: bytes));
   }
 
   return posts;

@@ -1,21 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../class/post.dart';
 
 
+
 class PostView extends StatefulWidget{
 
-  List<Post> posts;
+  DocumentSnapshot posts;
   _PostViewState main = null;
   // construtor  
-  PostView(List<Post> posts){
+  PostView(DocumentSnapshot posts){
     this.posts = posts;
     main  = new _PostViewState(posts);
   }
    
    
-  addPost(Post post){
-    main.addPost(post);
-  }
+  // addPost(Post post){
+  //   main.addPost(post);
+  // }
   
 
   @override
@@ -25,24 +27,25 @@ class PostView extends StatefulWidget{
 
 class _PostViewState extends State<PostView>{
 
-  List<Post> posts;
-  _PostViewState(List<Post> posts){
+  DocumentSnapshot posts;
+  _PostViewState(DocumentSnapshot posts){
     this.posts = posts;
+    
   }
+  
 
-   addPost(Post post){
-    setState(() {
 
-      posts.add(post);
-    });
-  }
+
+
+  //  addPost(Post post){
+  //   setState(() {
+
+  //     posts.add(post);
+  //   });
+  // }
 
   @override
-  Widget build(BuildContext context) {
-
-    return ListView.separated(
-      itemCount: posts.length,
-      itemBuilder: (BuildContext context, int pos){
+  Widget build(BuildContext contex) {
        return Container(
          color: Colors.white,
          child: Column(
@@ -57,23 +60,20 @@ class _PostViewState extends State<PostView>{
                   SizedBox(
                     width:10
                   ),
-                  Text(posts[pos].name)
+                  Text(posts["name"])
                 ],
               ),
             ),   
-            Image.memory(posts[pos].imageCode),
+            Image.network(posts["imageCode"]),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+              child: Text(posts["caption"],
+            )
             )
           ],  
          ),
        ); 
-    },
-    separatorBuilder: (BuildContext context, int index) {
-      return Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 5),);
-    }
-    );
 
   }
 }
+

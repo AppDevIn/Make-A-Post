@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:io';
@@ -6,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'listView.dart';
 import 'package:InstaPostOnly/class/post.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class CustomDialog extends StatefulWidget{
@@ -55,6 +58,19 @@ class _CustomDialogState extends State<CustomDialog>{
 
   }
 
+CollectionReference posts = Firestore.instance.collection('posts');
+     Future<void> addUser(String bytes, String caption) {
+      // Call the user's CollectionReference to add a new user
+      return posts
+          .add({
+            'name': "fullName", // John Doe
+            'caption': caption,// Stokes and Sons// 42
+            'imageCode': bytes
+          })
+          .then((value) => print("User Added"))
+          .catchError((error) => print("Failed to add user: $error"));
+    }
+
   dialogContent(){
     return Container(
       padding: EdgeInsets.all(16),
@@ -90,13 +106,27 @@ class _CustomDialogState extends State<CustomDialog>{
                ),
                ), 
               ),
+              SizedBox(width: 16),
                      RaisedButton(
                onPressed: () async {
                 final bytes = await _file.readAsBytes();
                 print("clicked");
                 // String _base64 = base64Encode(response.bodyBytes);
                 // Uint8List bytes = base64Decode(_base64);
-                 update.addPost(new Post(name: "Test", imageCode: bytes ));
+                String b = base64Encode(bytes);
+                
+                
+                StorageUploadTask _task;
+                String filePath = 'image/${DateTime.now()}.png';
+                final StorageReference _storage = FirebaseStorage.instance.ref().child(filePath);
+                _task = _storage.putFile(_file);
+                StorageTaskSnapshot _snap = await _task.onComplete;
+                
+                _snap.ref.getDownloadURL().then((value) => addUser(value, _controller.text));
+
+                
+                
+                //  update.addPost(new Post(name: "Test", imageCode: bytes ));
                },
                child: Text("Upload",
                style: TextStyle(
