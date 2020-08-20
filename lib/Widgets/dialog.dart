@@ -28,7 +28,8 @@ class _CustomDialogState extends State<CustomDialog>{
   PostView update;
   final picker = new ImagePicker();
 
-  final TextEditingController _controller = new TextEditingController();
+  final TextEditingController _name = new TextEditingController();
+  final TextEditingController _caption = new TextEditingController();
 
   Future<void> _pickImage(ImageSource source) async{
     final selected = await picker.getImage(source: source);
@@ -59,13 +60,13 @@ class _CustomDialogState extends State<CustomDialog>{
   }
 
 CollectionReference posts = Firestore.instance.collection('posts');
-     Future<void> addUser(String bytes, String caption) {
+     Future<void> addUser(String link, String caption, String name) {
       // Call the user's CollectionReference to add a new user
       return posts
           .add({
-            'name': "fullName", // John Doe
+            'name': name, // John Doe
             'caption': caption,// Stokes and Sons// 42
-            'imageCode': bytes
+            'imageCode': link
           })
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
@@ -90,11 +91,18 @@ CollectionReference posts = Firestore.instance.collection('posts');
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text("Make a post"),
+         Text("Make a post"),
           SizedBox(height: 16),
           TextField(
-            controller: _controller ,
+            controller: _name,
+            decoration: InputDecoration.collapsed(hintText: "Name"),
           ),
+          SizedBox(height: 16),
+          TextField(
+            controller: _caption,
+            decoration: InputDecoration.collapsed(hintText: "Caption"),
+          ),
+          SizedBox(height: 16),
           SizedBox(height: 16),
           Row(
            children: <Widget>[
@@ -122,7 +130,7 @@ CollectionReference posts = Firestore.instance.collection('posts');
                 _task = _storage.putFile(_file);
                 StorageTaskSnapshot _snap = await _task.onComplete;
                 
-                _snap.ref.getDownloadURL().then((value) => addUser(value, _controller.text));
+                _snap.ref.getDownloadURL().then((value) => addUser(value, _caption.text, _name.text));
 
                 
                 

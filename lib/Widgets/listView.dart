@@ -60,15 +60,20 @@ class _PostViewState extends State<PostView>{
                   SizedBox(
                     width:10
                   ),
-                  Text(posts["name"])
+                  Text(posts["name"], textAlign: TextAlign.start,)
                 ],
               ),
             ),   
             Image.network(posts["imageCode"]),
-            Padding(
+            Align(
+              alignment: Alignment.topLeft,
+            child:Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(posts["caption"],
+              textAlign: TextAlign.start,
             )
+            )
+
             )
           ],  
          ),
