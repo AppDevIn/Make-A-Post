@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'onBoarding.dart';
 
 void main() => runApp( MaterialApp(
-  ,
   home:OnBoarding()));
 
 class OnBoarding extends StatefulWidget {

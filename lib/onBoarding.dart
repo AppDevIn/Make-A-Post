@@ -4,6 +4,8 @@ import 'Widgets/listView.dart';
 import 'Widgets/dialog.dart';
 import 'class/post.dart';
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
@@ -11,6 +13,7 @@ import 'package:http/http.dart' as http;
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Welcome to Flutter',
       debugShowCheckedModeBanner: false,
@@ -23,7 +26,10 @@ class MyApp extends StatelessWidget {
 class Main extends StatelessWidget{
 
 
-  const Main();
+  Main();
+
+  PostView postView = null;
+
 
 
   @override
@@ -34,7 +40,7 @@ class Main extends StatelessWidget{
           title: const Text("Overflow"),
           actions: <Widget>[
             IconButton(icon: const Icon(Icons.add), tooltip: "Add post", onPressed:() {
-              showDialog(context: context, builder: (BuildContext context) => CustomDialog());
+              showDialog(context: context, builder: (BuildContext context) => CustomDialog(update: postView,));
             })
           ],
         ),
@@ -44,7 +50,8 @@ class Main extends StatelessWidget{
               future: generatePost(),
               builder: (context, AsyncSnapshot<List<Post>> snapshot) {
                 if (snapshot.hasData) {
-                  return PostView(snapshot.data);
+                  postView = PostView(snapshot.data);
+                  return postView;
                 } else {
                   return CircularProgressIndicator();
                 }

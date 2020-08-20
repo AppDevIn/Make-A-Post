@@ -5,15 +5,21 @@ import '../class/post.dart';
 class PostView extends StatefulWidget{
 
   List<Post> posts;
-
+  _PostViewState main = null;
   // construtor  
   PostView(List<Post> posts){
     this.posts = posts;
+    main  = new _PostViewState(posts);
+  }
+   
+   
+  addPost(Post post){
+    main.addPost(post);
   }
   
 
   @override
-  State<StatefulWidget> createState() => _PostViewState(posts);
+  State<StatefulWidget> createState() => main;
 
 }
 
@@ -22,6 +28,13 @@ class _PostViewState extends State<PostView>{
   List<Post> posts;
   _PostViewState(List<Post> posts){
     this.posts = posts;
+  }
+
+   addPost(Post post){
+    setState(() {
+
+      posts.add(post);
+    });
   }
 
   @override
@@ -48,7 +61,11 @@ class _PostViewState extends State<PostView>{
                 ],
               ),
             ),   
-            Image.memory(posts[pos].imageCode)
+            Image.memory(posts[pos].imageCode),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+            )
           ],  
          ),
        ); 
