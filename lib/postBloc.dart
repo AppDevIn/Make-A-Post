@@ -38,7 +38,7 @@ class PostBloc {
 
 generatePost(StreamController<List<Post>> controller, List<Post> post) async {
   http.Response response = await http.get(
-    'https://i.ytimg.com/vi/RNRN7tW1Vgg/maxresdefault.jpg',
+    'https://i.ytimg.com/vi/c7oV1T2j5mc/maxresdefault.jpg',
   );
 
   String _base64 = base64Encode(response.bodyBytes);
