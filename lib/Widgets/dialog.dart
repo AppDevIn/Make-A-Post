@@ -6,19 +6,20 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'listView.dart';
 import 'package:InstaPostOnly/class/post.dart';
+import '../postBloc.dart';
 
 class CustomDialog extends StatefulWidget {
-  PostView update;
+  final PostBloc postBloc;
   //Defualt construtor
-  CustomDialog({this.update});
+  CustomDialog({this.postBloc});
 
   @override
-  State<StatefulWidget> createState() => _CustomDialogState(update);
+  State<StatefulWidget> createState() => _CustomDialogState(postBloc);
 }
 
 class _CustomDialogState extends State<CustomDialog> {
   File _file;
-  PostView update;
+  final PostBloc postBloc;
   final picker = new ImagePicker();
 
   final TextEditingController _name = new TextEditingController();
@@ -36,7 +37,7 @@ class _CustomDialogState extends State<CustomDialog> {
     setState(() => _file = cropped ?? _file);
   }
 
-  _CustomDialogState(this.update);
+  _CustomDialogState(this.postBloc);
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +96,10 @@ class _CustomDialogState extends State<CustomDialog> {
                 child: RaisedButton(
                   onPressed: () async {
                     final bytes = await _file.readAsBytes();
-                    print("clicked");
                     // String _base64 = base64Encode(response.bodyBytes);
                     // Uint8List bytes = base64Decode(_base64);
-                    update.addPost(new Post(name: _name.text, imageCode: bytes));
+                    postBloc.postAdd.add(Post(name: _name.text, caption: _caption.text, imageCode: bytes));
+                    print("clicked");
                   },
                   child: Text(
                     "Upload",

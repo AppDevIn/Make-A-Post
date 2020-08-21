@@ -4,18 +4,15 @@ import '../class/post.dart';
 
 class PostView extends StatefulWidget{
 
-  List<Post> posts;
+  Post posts;
   _PostViewState main = null;
   // construtor  
-  PostView(List<Post> posts){
+  PostView(Post posts){
     this.posts = posts;
     main  = new _PostViewState(posts);
   }
    
-   
-  addPost(Post post){
-    main.addPost(post);
-  }
+
   
 
   @override
@@ -25,20 +22,14 @@ class PostView extends StatefulWidget{
 
 class _PostViewState extends State<PostView>{
 
-  List<Post> posts;
-  _PostViewState(List<Post> posts){
-    this.posts = posts;
+  Post post;
+  _PostViewState(Post posts){
+    this.post = posts;
   }
 
-   addPost(Post post){
-    setState(() {
-
-      posts.add(post);
-    });
-  }
-
+ 
   @override
-  Widget build(BuildContext context, Post post) {
+  Widget build(BuildContext context) {
 
            return Container(
          color: Colors.white,
