@@ -28,47 +28,33 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _postBloc = PostBloc();
 
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
         title: const Text("Overflow"),
-        actions: <Widget>[
-          IconButton(
-              icon: const Icon(Icons.add),
-              tooltip: "Add post",
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) => CustomDialog(
-                          postBloc: _postBloc,
-                        ));
-              })
-        ],
       ),
-      body: Container(
-        child: Center(
-            child: StreamBuilder<List<Post>>(
-          stream: _postBloc.postListStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.separated(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int pos) {
-                    return PostView(snapshot.data[pos]);
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                    );
-                  });
-            } else {
-              return CircularProgressIndicator();
-            }
-          },
-        )),
-      ),
+      body: Center(
+          child: Text('Hello World'),
+      )
     ));
   }
+}
+
+//Fake Data
+generatePost(StreamController<List<Post>> controller, List<Post> post) async {
+  http.Response response = await http.get(
+    'https://i.ytimg.com/vi/c7oV1T2j5mc/maxresdefault.jpg',
+  );
+
+  String _base64 = base64Encode(response.bodyBytes);
+  Uint8List bytes = base64Decode(_base64);
+
+  List<Post> posts = new List<Post>();
+  for (int i = 0; i < 1; i++) {
+    posts.add(new Post(name: "inori yuzuriha", imageCode: bytes));
+  }
+
+  controller.add(posts);
+  post = posts;
 }

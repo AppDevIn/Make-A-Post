@@ -9,35 +9,23 @@ import 'package:InstaPostOnly/class/post.dart';
 import '../postBloc.dart';
 
 class CustomDialog extends StatefulWidget {
-  final PostBloc postBloc;
+  
   //Defualt construtor
-  CustomDialog({this.postBloc});
+  CustomDialog();
 
   @override
-  State<StatefulWidget> createState() => _CustomDialogState(postBloc);
+  State<StatefulWidget> createState() => _CustomDialogState();
 }
 
 class _CustomDialogState extends State<CustomDialog> {
-  File _file;
-  final PostBloc postBloc;
-  final picker = new ImagePicker();
+  
+  
+  //TODO: This is the TextEditingController
+  
+  //TODO method to _pickImage
+ 
 
-  final TextEditingController _name = new TextEditingController();
-  final TextEditingController _caption = new TextEditingController();
-
-  Future<void> _pickImage(ImageSource source) async {
-    final selected = await picker.getImage(source: source);
-
-    setState(() => _file = File(selected.path));
-  }
-
-  Future<void> _cropImage() async {
-    File cropped = await ImageCropper.cropImage(sourcePath: _file.path);
-
-    setState(() => _file = cropped ?? _file);
-  }
-
-  _CustomDialogState(this.postBloc);
+  _CustomDialogState();
 
   @override
   Widget build(BuildContext context) {
@@ -47,70 +35,10 @@ class _CustomDialogState extends State<CustomDialog> {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: dialogContent(),
-    );
-  }
-
-  dialogContent() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(top: 16),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(17),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black26,
-                blurRadius: 10.0,
-                offset: Offset(0.0, 10.0)),
-          ]),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text("Make a post"),
-          SizedBox(height: 16),
-          TextField(
-            controller: _name,
-            decoration: InputDecoration.collapsed(hintText: "Name"),
-          ),
-          SizedBox(height: 16),
-          TextField(
-            controller: _caption,
-            decoration: InputDecoration.collapsed(hintText: "Caption"),
-          ),
-          SizedBox(height: 16),
-          Row(
-            children: <Widget>[
-              RaisedButton(
-                onPressed: () => _pickImage(ImageSource.gallery),
-                child: Text(
-                  "Upload image",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                child: RaisedButton(
-                  onPressed: () async {
-                    final bytes = await _file.readAsBytes();
-                    // String _base64 = base64Encode(response.bodyBytes);
-                    // Uint8List bytes = base64Decode(_base64);
-                    postBloc.postAdd.add(Post(name: _name.text, caption: _caption.text, imageCode: bytes));
-                    print("clicked");
-                  },
-                  child: Text(
-                    "Upload",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
+      child: Center(child: Text("Hello this is the dialog"),),
     );
   }
 }
+
+
+//TODO: Body Content

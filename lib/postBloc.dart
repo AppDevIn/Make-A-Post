@@ -6,36 +6,22 @@ import 'dart:typed_data';
 import 'class/post.dart';
 
 class PostBloc {
-  List<Post> _posts = new List<Post>();
 
-  final _postListSteamController = StreamController<List<Post>>();
-  final _postListAddComtroller = StreamController<Post>();
+  //This is List
+  
+  //Controller
 
   //getters
-  Stream<List<Post>> get postListStream => _postListSteamController.stream;
-  StreamSink<List<Post>> get postListSink => _postListSteamController.sink;
+  
 
-  StreamSink<Post> get postAdd => _postListAddComtroller.sink;
+  //Constructor
+  
 
-  PostBloc() {
-    _postListSteamController.add([]);
-    
-    
-    generatePost(_postListSteamController, _posts);
-
-    _postListAddComtroller.stream.listen((post) {
-      _posts.add(post);
-      postListSink.add(_posts);
-      print(_posts);
-    });
-  }
-
-  void dispose() {
-    _postListSteamController.close();
-    _postListAddComtroller.close();
-  }
+  //Dispose 
+  
 }
 
+//Fake data
 generatePost(StreamController<List<Post>> controller, List<Post> post) async {
   http.Response response = await http.get(
     'https://i.ytimg.com/vi/c7oV1T2j5mc/maxresdefault.jpg',
