@@ -38,12 +38,9 @@ class _PostViewState extends State<PostView>{
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, Post post) {
 
-    return ListView.separated(
-      itemCount: posts.length,
-      itemBuilder: (BuildContext context, int pos){
-       return Container(
+           return Container(
          color: Colors.white,
          child: Column(
           children: <Widget>[
@@ -57,11 +54,11 @@ class _PostViewState extends State<PostView>{
                   SizedBox(
                     width:10
                   ),
-                  Text(posts[pos].name)
+                  Text(post.name)
                 ],
               ),
             ),   
-            Image.memory(posts[pos].imageCode),
+            Image.memory(post.imageCode),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
@@ -69,11 +66,6 @@ class _PostViewState extends State<PostView>{
           ],  
          ),
        ); 
-    },
-    separatorBuilder: (BuildContext context, int index) {
-      return Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 5),);
-    }
-    );
 
   }
 }
