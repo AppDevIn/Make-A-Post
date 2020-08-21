@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'onBoarding.dart';
+import 'postScreen.dart';
 
 void main() => runApp( MaterialApp(
   home:OnBoarding()));
