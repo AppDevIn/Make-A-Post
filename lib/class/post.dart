@@ -9,6 +9,4 @@ class Post{
 
   //Constructor
   Post({this.name, this.userName, this.caption, this.imageCode});
-
-
 }
