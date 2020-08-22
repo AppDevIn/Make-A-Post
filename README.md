@@ -1,4 +1,4 @@
-# InstaPostOnly
+# Make A Post
 
 Instagram Duplicate but post only
 
