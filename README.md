@@ -1,6 +1,6 @@
 # Make A Post
 
-Instagram Duplicate but post only
+Instagram Duplicate but only does the post
 
 ## Getting Started
 
