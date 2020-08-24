@@ -1,6 +1,6 @@
 # Make A Post
 
-Instagram Duplicate but only does the post
+Instagram Duplicate but only does the post for a Overflow workshop
 
 ## Getting Started
 
